@@ -7,16 +7,13 @@
 
 package frc.robot;
 
-import java.awt.JobAttributes;
-
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.JoystickDrive;
-//import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.commands.UpdateSmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -30,6 +27,7 @@ public class Robot extends TimedRobot {
 
   Command m_autonomousCommand;
   Command m_teleopCommand = new JoystickDrive();
+  Command m_dashboardCommand = new UpdateSmartDashboard();
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   /**
@@ -39,7 +37,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_oi = new OI();
-    m_chooser.addDefault("Default Auto", new ExampleCommand());
+    //m_chooser.addDefault("Default Auto", new ExampleCommand());
     // chooser.addObject("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
   }
@@ -120,6 +118,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     m_teleopCommand.start();
+    m_dashboardCommand.start();
   }
 
   /**
