@@ -6,13 +6,11 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
-
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.subsystems.DriveSystem;
+import frc.robot.OI;
 
 public class JoystickDrive extends Command {
-  Joystick joy = new Joystick(0);
   public JoystickDrive() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
@@ -27,8 +25,8 @@ public class JoystickDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-      double sensitivity = (-joy.getRawAxis(3) + 1);
-      DriveSystem.getInstance().arcadeDrive(sensitivity * joy.getY(), sensitivity * joy.getX());
+      double sensitivity = (-OI.stick.getRawAxis(3) + 1);
+      DriveSystem.getInstance().arcadeDrive(sensitivity * OI.stick.getY(), sensitivity * OI.stick.getX());
   }
 
   // Make this return true when this Command no longer needs to run execute()

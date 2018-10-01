@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.RobotMap;
 
 /**
  * Add your docs here.
@@ -28,8 +29,8 @@ public class DriveSystem extends Subsystem {
   // here. Call these from Commands.
   private DifferentialDrive drive;
   public DriveSystem(){
-    PWMVictorSPX left = new PWMVictorSPX(0);
-    PWMVictorSPX right = new PWMVictorSPX(1);
+    PWMVictorSPX left = new PWMVictorSPX(RobotMap.leftMotor);
+    PWMVictorSPX right = new PWMVictorSPX(RobotMap.rightMotor);
     drive = new DifferentialDrive(left, right);
   }
 

@@ -9,7 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Encoder;
-
+import frc.robot.RobotMap;
 /**
  * Add your docs here.
  */
@@ -26,8 +26,8 @@ public class Encoders extends Subsystem {
   private Encoder right;
 
   private Encoders(){
-    left = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
-    right = new Encoder(2, 3, false, Encoder.EncodingType.k4X);
+    left = new Encoder(RobotMap.leftEncoder[0], RobotMap.leftEncoder[1], false, Encoder.EncodingType.k4X);
+    right = new Encoder(RobotMap.rightEncoder[0], RobotMap.rightEncoder[1], false, Encoder.EncodingType.k4X);
 
     double dpp = 0.01308996939;
     left.setDistancePerPulse(dpp);
