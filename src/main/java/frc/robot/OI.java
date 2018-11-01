@@ -7,6 +7,10 @@
 
 package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.buttons.*;
+import frc.robot.commands.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -19,9 +23,20 @@ public class OI {
   // You create one by telling it which joystick it's on and which button
   // number it is.
   static int joystickPort = 0;
+  public static int joystickSensitivityAxis = 3;
   public static Joystick stick = new Joystick(joystickPort);
-  // Button button = new JoystickButton(stick, buttonNumber);
-
+ // static int controllerPort = 0;
+ // public static XboxController controller = new XboxController(controllerPort);
+  /*public static int getType(){
+    return (DriverStation.getInstance().getJoystickType(0));
+  }*/
+  
+  public static Button up = new JoystickButton(stick, 5);
+  public static  Button down = new JoystickButton(stick, 6);
+  static {
+    up.whenPressed(new ShiftUp());
+    down.whenPressed(new ShiftDown());
+  }
   // There are a few additional built in buttons you can use. Additionally,
   // by subclassing Button you can create custom triggers and bind those to
   // commands the same as any other Button.

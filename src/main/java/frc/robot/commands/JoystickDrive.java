@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
+import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.subsystems.DriveSystem;
 import frc.robot.OI;
@@ -20,12 +21,13 @@ public class JoystickDrive extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-      double sensitivity = (-OI.stick.getRawAxis(3) + 1);
+      double sensitivity = (1 - OI.stick.getRawAxis(OI.joystickSensitivityAxis));
       DriveSystem.getInstance().arcadeDrive(sensitivity * OI.stick.getY(), sensitivity * OI.stick.getX());
   }
 
@@ -38,6 +40,7 @@ public class JoystickDrive extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    DriveSystem.getInstance().stop();
   }
 
   // Called when another command which requires one or more of the same

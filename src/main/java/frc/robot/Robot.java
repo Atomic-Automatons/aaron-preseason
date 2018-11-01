@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -14,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.JoystickDrive;
 import frc.robot.commands.UpdateSmartDashboard;
+import frc.robot.commands.ControllerDrive;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -25,8 +27,23 @@ import frc.robot.commands.UpdateSmartDashboard;
 public class Robot extends TimedRobot {
   public static OI m_oi;
 
+  /*private Command driveCommandType(){
+    System.out.println("OI.getType= "+OI.getType() + " kxInputGamepad=" + GenericHID.HIDType.kXInputGamepad.value);
+    if(OI.getType() == GenericHID.HIDType.kHIDJoystick.value){
+      System.out.println("Joysrick Drive");
+      return new JoystickDrive();
+    } else if(OI.getType() == GenericHID.HIDType.kXInputGamepad.value){
+      System.out.println("Controller Drive");
+      return new ControllerDrive();
+    } else {
+      System.out.println("Unknown, No Drive");
+      return null;
+    }
+    
+  }*/
+
   Command m_autonomousCommand;
-  Command m_teleopCommand = new JoystickDrive();
+  Command m_teleopCommand= new JoystickDrive();// = new ControllerDrive();
   Command m_dashboardCommand = new UpdateSmartDashboard();
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -117,7 +134,11 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    m_teleopCommand.start();
+    if(m_teleopCommand != null){
+      m_teleopCommand.start();
+    }else{
+      System.out.println("ERROR: NO HID DEVICE");
+    }
     m_dashboardCommand.start();
   }
 
