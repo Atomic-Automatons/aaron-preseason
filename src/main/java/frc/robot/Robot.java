@@ -137,7 +137,7 @@ public class Robot extends TimedRobot {
     if(m_teleopCommand != null){
       m_teleopCommand.start();
     }else{
-      System.out.println("ERROR: NO HID DEVICE");
+      System.out.println("ERROR: NO HID DEVICE");//This may not always work properly
     }
     m_dashboardCommand.start();
   }
