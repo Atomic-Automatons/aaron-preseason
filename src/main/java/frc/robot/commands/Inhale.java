@@ -9,6 +9,7 @@ public class Inhale extends Command {
      */
     public Inhale() {
         super();
+        requires(Launcher.getInstance());
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }

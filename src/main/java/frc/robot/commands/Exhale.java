@@ -13,6 +13,7 @@ public class Exhale extends Command {
    */
   public Exhale() {
     super();
+    requires(Launcher.getInstance());
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }

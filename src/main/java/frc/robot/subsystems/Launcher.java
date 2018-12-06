@@ -26,11 +26,13 @@ public class Launcher extends Subsystem {
     public Launcher() {
         left = new Spark(RobotMap.leftLauncherMotor);
         right = new Spark(RobotMap.rightLauncherMotor);
+        right.setInverted(true);
     }
 
     public void setSpeed(double speed) {
         left.set(speed);
-        right.set(-speed);
+        right.set(speed);
+
     }
 
     public void stop() {
