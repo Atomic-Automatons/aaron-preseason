@@ -32,7 +32,7 @@ public class DriveSystem extends Subsystem {
     
     left.setInverted(true);
     right.setInverted(true);
-   
+	
     drive = new DifferentialDrive(left, right);
 
     gearShift = new DoubleSolenoid(0, 1);
@@ -42,9 +42,14 @@ public class DriveSystem extends Subsystem {
   public void arcadeDrive(double x, double y){
     drive.arcadeDrive(x, y);
   }
+  
+  public void startAuto(){
+	drive.setSafetyEnabled(false);
+  }
 
   public void stop(){
     drive.arcadeDrive(0, 0);
+	drive.setSafetyEnabled(false);
   }
 
   public void shiftUp(){

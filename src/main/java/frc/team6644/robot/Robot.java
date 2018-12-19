@@ -8,36 +8,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.frc6644.robot.commands.*;
+import frc.frc6644.robot.subsystems.*;
 
 public class Robot extends TimedRobot {
   public static OI m_oi;
 
-  /*private Command driveCommandType(){
-    System.out.println("OI.getType= "+OI.getType() + " kxInputGamepad=" + GenericHID.HIDType.kXInputGamepad.value);
-    if(OI.getType() == GenericHID.HIDType.kHIDJoystick.value){
-      System.out.println("Joysrick Drive");
-      return new JoystickDrive();
-    } else if(OI.getType() == GenericHID.HIDType.kXInputGamepad.value){
-      System.out.println("Controller Drive");
-      return new ControllerDrive();
-    } else {
-      System.out.println("Unknown, No Drive");
-      return null;
-    }
-    
-  }*/
-
-  Command m_autonomousCommand = new Turn(90);
-  Command m_teleopCommand= new JoystickDrive();// = new ControllerDrive();
+  Command m_autonomousCommand = new DriveAndTurn();
+  Command m_teleopCommand= new JoystickDrive();
   Command m_dashboardCommand = new UpdateSmartDashboard();
-  SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   @Override
   public void robotInit() {
     m_oi = new OI();
-    //m_chooser.addDefault("Default Auto", new ExampleCommand());
-    // chooser.addObject("My Auto", new MyAutoCommand());
-    SmartDashboard.putData("Auto mode", m_chooser);
+	Gyro.getInstance();
   }
 
   /**
@@ -59,6 +42,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+	  Scheduler.getInstance().removeAll();
   }
 
   @Override
@@ -79,7 +63,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_chooser.getSelected();
+   
 
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -88,14 +72,9 @@ public class Robot extends TimedRobot {
      * autonomousCommand = new ExampleCommand(); break; }
      */
 
-    // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
-      m_autonomousCommand.start();
-    }
-
-    if(m_teleopCommand != null){
-
-    }
+     m_autonomousCommand.start();
+	}
   }
 
   /**

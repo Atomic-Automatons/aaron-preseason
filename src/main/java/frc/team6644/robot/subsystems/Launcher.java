@@ -22,12 +22,14 @@ public class Launcher extends Subsystem {
         left = new Spark(RobotMap.leftLauncherMotor);
         right = new Spark(RobotMap.rightLauncherMotor);
         left.setInverted(true);
+		
+		left.setSafetyEnabled(false);
+		right.setSafetyEnabled(false);
     }
 
     public void setSpeed(double speed) {
         left.set(speed);
         right.set(speed);
-
     }
 
     public void stop() {

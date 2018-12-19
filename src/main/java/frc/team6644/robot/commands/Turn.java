@@ -8,34 +8,31 @@ import frc.frc6644.robot.subsystems.Gyro;
 public class Turn extends Command {
 	private double measuredAngle;
 	private double targetAngle;
-	private double error;
-	private double maxSpeed = 0.5;
+	private static int time = 0;
 	
     public Turn(double angle) {
-        requires(DriveSystem.getInstance());
 		this.targetAngle = angle;
 	}
 
     @Override
     protected boolean isFinished() {
-        return Math.abs(error) < 0.1;
+        return Math.abs(measuredAngle - targetAngle) < 1;
     }
 
     @Override
     protected void initialize() {
 		Gyro.getInstance().reset();
+		DriveSystem.getInstance().startAuto();
     }
 
     @Override
     protected void execute() {
 		measuredAngle = Gyro.getInstance().getDegrees();
-		error = (targetAngle - measuredAngle) / measuredAngle;
-		System.out.println(error % maxSpeed);
-		DriveSystem.getInstance().arcadeDrive(0, error % maxSpeed);
+		DriveSystem.getInstance().arcadeDrive(0, 0.55 * Math.signum(targetAngle - measuredAngle));
     }
 
     @Override
     protected void end() {
 		DriveSystem.getInstance().stop();
-    }
+	}
 }

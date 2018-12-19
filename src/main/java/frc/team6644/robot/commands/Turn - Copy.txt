@@ -1,0 +1,69 @@
+package frc.frc6644.robot.commands;
+
+import edu.wpi.first.wpilibj.command.Command;
+
+import frc.frc6644.robot.subsystems.DriveSystem;
+import frc.frc6644.robot.subsystems.Gyro;
+
+public class Turn extends Command {
+	private double measuredAngle;
+	private double targetAngle;
+	private double error;
+	private double minSpeed = 0.6;
+	private double maxSpeed = 0.8;
+	private static int time = 0;
+	
+    public Turn(double angle) {
+		this.targetAngle = angle;
+	}
+
+    @Override
+    protected boolean isFinished() {
+        return Math.abs(error) < 0.01;
+    }
+
+    @Override
+    protected void initialize() {
+		Gyro.getInstance().reset();
+		DriveSystem.getInstance().startAuto();
+    }
+	
+	protected void calculateError(){
+		error = -(measuredAngle - targetAngle) / targetAngle;
+	}
+	
+	protected double clamp(double value){
+		double abs_val = Math.abs(value);
+		
+		if(abs_val < minSpeed){
+			return minSpeed * Math.signum(value);
+		}else if (abs_val > maxSpeed){
+			return maxSpeed * Math.signum(value);
+		}
+		
+		return value;
+	}
+
+    @Override
+    protected void execute() {
+		measuredAngle = Gyro.getInstance().getDegrees();
+		calculateError();
+		
+		time++;
+		time %= 100;
+		if(time == 1){
+			System.out.println("Error: " + error);
+			System.out.println("Angle: " + measuredAngle);
+			System.out.println("Target: " + targetAngle);
+			System.out.println("Output: " + clamp(error));
+		}
+		
+		DriveSystem.getInstance().arcadeDrive(0, clamp(error));
+    }
+
+    @Override
+    protected void end() {
+		DriveSystem.getInstance().stop();
+		System.out.println(error);
+	}
+}
