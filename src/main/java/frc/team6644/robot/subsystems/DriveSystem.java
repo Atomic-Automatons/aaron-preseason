@@ -53,11 +53,11 @@ public class DriveSystem extends Subsystem {
   }
 
   public void shiftUp(){
-    gearShift.set(Value.kReverse); //Changed in EST
+    gearShift.set(Value.kForward);
   }
 
   public void shiftDown(){
-    gearShift.set(Value.kForward); //Changed in EST
+    gearShift.set(Value.kReverse);
   }
 
   @Override
