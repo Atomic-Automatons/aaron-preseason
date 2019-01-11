@@ -2,7 +2,7 @@ package frc.frc6644.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.frc6644.robot.subsystems.Encoders;
+import frc.frc6644.robot.subsystems.*;
 
 public class UpdateSmartDashboard extends Command {
   public UpdateSmartDashboard() {}
@@ -14,6 +14,7 @@ public class UpdateSmartDashboard extends Command {
   protected void execute() {
     SmartDashboard.putNumber("Encoders.left", Encoders.getInstance().getLeftDistance());
     SmartDashboard.putNumber("Encoders.right", Encoders.getInstance().getRightDistance());
+	SmartDashboard.putNumber("Photoresistor.left", Photoresistor.getInstance().getLeft());
   }
 
   @Override
