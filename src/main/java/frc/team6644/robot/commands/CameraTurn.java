@@ -7,7 +7,6 @@ import frc.frc6644.robot.OI;
 import frc.frc6644.robot.subsystems.DriveSystem;
 
 public class CameraTurn extends Command {
-    double speed = .32;
 
     public CameraTurn() {
         super();
@@ -26,13 +25,7 @@ public class CameraTurn extends Command {
 
     @Override
     protected void execute() {
-        if (SmartDashboard.getString("Yellow Ball", "getString(YellowBall)").equals("left")) {
-            DriveSystem.getInstance().arcadeDrive(-speed, speed);
-        } else if (SmartDashboard.getString("Yellow Ball", "getString(YellowBall)").equals("right")) {
-            DriveSystem.getInstance().arcadeDrive(speed, -speed);
-        } else {
-            DriveSystem.getInstance().arcadeDrive(0, 0);
-        }
+    SmartDashboard.putString(Camera.getInstance().center(Camera.getInstance().process());
     }
 
     @Override
