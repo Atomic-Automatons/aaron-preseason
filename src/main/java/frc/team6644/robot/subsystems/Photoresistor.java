@@ -5,24 +5,29 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import frc.frc6644.robot.RobotMap;
 
 public class Photoresistor extends Subsystem {
-	private instance Photoresistor = null;
+	private static Photoresistor instance = null;
 	public static Photoresistor getInstance() {
 		if(instance == null){
-			instance = new Gyro();
+			instance = new Photoresistor();
 		}
 		return instance;
 	}
-	PhotoResistor1 = AnalogInput(1);
-	PhotoResistor2 = AnalogInput(2);
-	PhotoResistor3 = AnalogInput(3);
 	
-	public static int PRvalue1() {
-		return PhotoResistor1.getValue();
+	AnalogInput photoResistor1 = new AnalogInput(1);
+	AnalogInput photoResistor2 = new AnalogInput(2);
+	AnalogInput photoResistor3 = new AnalogInput(3);
+	
+	public int getLeft() {
+		return photoResistor1.getValue();
 	}
-	public static int PRvalue2() {
-		return PhotoResistor2.getValue();
+	public int get2() {
+		return photoResistor2.getValue();
 	}
-	public static int PRvalue3() {
-		return PhotoResistor3.getValue();
+	public int get3() {
+		return photoResistor3.getValue();
+	}
+	
+	public void initDefaultCommand(){
+		
 	}
 }
